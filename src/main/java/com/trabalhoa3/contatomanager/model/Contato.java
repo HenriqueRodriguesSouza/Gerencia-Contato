@@ -1,6 +1,13 @@
+package main.java.com.trabalhoa3.contatomanager.model;
+
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.HashSet;
 
-public class Contato {
+public class Contato implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private String nome;
     private String email;
     private HashSet<String> telefone;
