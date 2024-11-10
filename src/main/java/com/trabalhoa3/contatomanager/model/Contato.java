@@ -5,10 +5,13 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.regex.Pattern;
 
+// Classe de modelo para contato
+
 public class Contato implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    // Atributos
     private String nome;
     private String email;
     private HashSet<String> telefone;

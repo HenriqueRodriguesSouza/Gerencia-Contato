@@ -7,6 +7,10 @@ import java.awt.event.ActionListener;
 import main.java.com.trabalhoa3.contatomanager.model.Contato;
 import main.java.com.trabalhoa3.contatomanager.service.GerenciadorContatos;
 
+/**
+ * Classe da tela de editar contatos
+ */
+
 public class EditContactDialog extends JDialog {
     private JButton salvarButton;
     private JTextField nameField;
@@ -72,7 +76,7 @@ public class EditContactDialog extends JDialog {
         setLocationRelativeTo(parent);
     }
 
-    // associa o formulario gerado no GUI Designer
+    // Cria o painel principal da janela
     private JPanel createContentPane() {
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));

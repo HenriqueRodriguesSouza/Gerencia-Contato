@@ -10,6 +10,8 @@ import java.io.IOException;
 import main.java.com.trabalhoa3.contatomanager.model.Contato;
 import java.util.*;
 
+// Classe para gerenciar contatos e salvar em arquivo
+
 public class GerenciadorContatos implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -65,6 +67,7 @@ public class GerenciadorContatos implements Serializable {
         }
     }
 
+    // Metodo para remover um contato do arquivo
     public static void removerContatoDoArquivo(String caminhoArquivo, String telefone) {
         GerenciadorContatos gerenciador = carregarContatos(caminhoArquivo); // Carrega contatos do arquivo
 
@@ -97,7 +100,7 @@ public class GerenciadorContatos implements Serializable {
         for (Contato c : listaContatos) {
             for (String telefoneNovo : contato.getTelefone()) {
                 if (c.getTelefone().contains(telefoneNovo)) {
-                    throw new IllegalArgumentException("O telefone " + telefoneNovo + " já está cadastrado para o contato: " + c.getNome());
+                    System.out.println("O telefone " + telefoneNovo + " já está cadastrado para o contato: " + c.getNome());
                 }
             }
         }

@@ -2,12 +2,14 @@ package main.java.com.trabalhoa3.contatomanager.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.stream.Collectors;
 import main.java.com.trabalhoa3.contatomanager.model.Contato;
 import main.java.com.trabalhoa3.contatomanager.service.GerenciadorContatos;
+
+/**
+ * Classe da tela da lista de contatos
+ */
 
 public class ContactsList extends JFrame {
     private JPanel contactsListPanel;
@@ -28,7 +30,7 @@ public class ContactsList extends JFrame {
         // Inicializa o painel e configura layout
         contactsListPanel = new JPanel(new BorderLayout());
 
-        // Cria modelo para a JList com os contatos
+        // Cria um modelo de lista e adiciona os contatos
         listModel = new DefaultListModel<>();
         contatos.forEach(listModel::addElement);
 
@@ -41,8 +43,9 @@ public class ContactsList extends JFrame {
         // Painel para barra de pesquisa
         JPanel searchPanel = new JPanel(new BorderLayout());
         searchField = new JTextField(20);
-        searchButton = new JButton("Pesquisar");
+        searchButton = new JButton("Pesquisar (Nome ou Telefone)");
 
+        // Adiciona a barra de pesquisa ao painel
         searchPanel.add(searchField, BorderLayout.CENTER);
         searchPanel.add(searchButton, BorderLayout.EAST);
         contactsListPanel.add(searchPanel, BorderLayout.NORTH);

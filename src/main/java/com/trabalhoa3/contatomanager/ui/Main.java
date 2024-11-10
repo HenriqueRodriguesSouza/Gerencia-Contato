@@ -7,9 +7,15 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Classe da tela (swing ui) inicial do programa e que podemos criar o contato
+ */
+
 public class Main extends JFrame {
+    //caminho arquivo serializado
     String caminhoArquivo = "src/main/resources/contatos.ser";
 
+    // Instancia o gerenciador de contatos
     GerenciadorContatos gerenciador = new GerenciadorContatos();
 
     private JPanel Name;
@@ -22,6 +28,7 @@ public class Main extends JFrame {
     private JButton salvarButton;
     private JPanel MainPanel;
 
+    //construtor
     public Main() {
         super("Agenda de Contatos");
         setContentPane(MainPanel);
@@ -38,15 +45,32 @@ public class Main extends JFrame {
                 String email = FieldEmail.getText();
                 String telefone = FieldTelefone.getText();
 
-                // cria o objeto contato
+                // carrega o Gerenciador de Contatos a partir do arquivo
+                GerenciadorContatos gerenciadorCarregado = GerenciadorContatos.carregarContatos(caminhoArquivo);
+
+                // verifica se o telefone já está em uso por outro contato
+                for (Contato c : gerenciadorCarregado.getListaContatos()) {
+                    if (c.getTelefone().contains(telefone)) {
+                        JOptionPane.showMessageDialog(
+                                Main.this,
+                                "O telefone " + telefone + " já pertence ao contato: " + c.getNome() +
+                                        "\nA criação do novo contato não foi realizada.",
+                                "Erro de Validação",
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                        return; // interrompe o processo de salvamento se o telefone estiver duplicado
+                    }
+                }
+
+                // cria um novo contato com os dados informados
                 Contato contato = new Contato(nome, email);
 
-                // Valida o telefone antes de salvar
+                // valida o telefone antes de salvar
                 if (contato.addTelefone(telefone)) {
-                    // Salva o contato no arquivo
+                    // salva o contato no arquivo
                     GerenciadorContatos.salvarContatoNoArquivo(caminhoArquivo, contato);
 
-                    // Limpa os campos após salvar
+                    // limpa os campos após salvar
                     FieldName.setText("");
                     FieldEmail.setText("");
                     FieldTelefone.setText("");
@@ -72,6 +96,7 @@ public class Main extends JFrame {
                 }
             }
         });
+
 
         // abre a tela de lista de contatos
         listaButton.addActionListener(new ActionListener() {
