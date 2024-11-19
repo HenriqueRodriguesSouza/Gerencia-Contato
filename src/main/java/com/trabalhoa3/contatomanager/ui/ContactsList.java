@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import main.java.com.trabalhoa3.contatomanager.model.Contato;
 import main.java.com.trabalhoa3.contatomanager.service.GerenciadorContatos;
+import java.util.Comparator;
 
 /**
  * Classe da tela da lista de contatos
@@ -25,7 +26,11 @@ public class ContactsList extends JFrame {
 
     public ContactsList(List<Contato> contatos) {
         super("Lista de Contatos");
-        this.allContacts = contatos;
+
+        // Garante que a lista recebida esteja ordenada por nome
+        this.allContacts = contatos.stream()
+                .sorted(Comparator.comparing(Contato::getNome))
+                .collect(Collectors.toList());
 
         // Inicializa o painel e configura layout
         contactsListPanel = new JPanel(new BorderLayout());

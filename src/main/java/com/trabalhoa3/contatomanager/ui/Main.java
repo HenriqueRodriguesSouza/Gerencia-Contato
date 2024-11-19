@@ -6,6 +6,8 @@ import java.util.List;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 
 /**
  * Classe da tela (swing ui) inicial do programa e que podemos criar o contato
@@ -98,21 +100,22 @@ public class Main extends JFrame {
         });
 
 
-        // abre a tela de lista de contatos
+// abre a tela de lista de contatos
         listaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Carrega o Gerenciador de Contatos a partir do arquivo
                 GerenciadorContatos gerenciadorCarregado = GerenciadorContatos.carregarContatos(caminhoArquivo);
 
-                // Obtém a lista de contatos
-                List<Contato> contatos = gerenciadorCarregado.getListaContatos();
+                // Obtém os contatos em ordem alfabética usando o TreeMap
+                List<Contato> contatosOrdenados = new ArrayList<>(gerenciadorCarregado.getContatosOrdenados().values());
 
                 // Cria e exibe a janela de lista de contatos com os dados carregados
-                ContactsList contactsList = new ContactsList(contatos);
+                ContactsList contactsList = new ContactsList(contatosOrdenados);
                 contactsList.setVisible(true);
             }
         });
+
     }
 
     public static void main(String[] args) {

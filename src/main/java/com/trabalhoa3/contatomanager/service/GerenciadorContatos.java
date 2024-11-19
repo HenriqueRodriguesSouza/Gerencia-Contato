@@ -14,6 +14,7 @@ import java.util.*;
 
 public class GerenciadorContatos implements Serializable {
     @Serial
+    // Versão da classe para serialização
     private static final long serialVersionUID = 1L;
 
     // Estruturas de dados para armazenamento
@@ -57,15 +58,25 @@ public class GerenciadorContatos implements Serializable {
         }
     }
 
-    // Metodo estático para carregar os contatos de um arquivo
+    // Metodo para carregar contatos do arquivo
     public static GerenciadorContatos carregarContatos(String caminhoArquivo) {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(caminhoArquivo))) {
-            return (GerenciadorContatos) in.readObject();
+            GerenciadorContatos gerenciador = (GerenciadorContatos) in.readObject();
+
+            // Reconstruir o TreeMap para garantir a ordenação
+            TreeMap<String, Contato> mapaOrdenado = new TreeMap<>();
+            for (Contato contato : gerenciador.getListaContatos()) {
+                mapaOrdenado.put(contato.getNome(), contato);
+            }
+            gerenciador.contatosOrdenados = mapaOrdenado;
+
+            return gerenciador;
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Erro ao carregar contatos: " + e.getMessage());
             return new GerenciadorContatos(); // Retorna um gerenciador vazio em caso de erro
         }
     }
+
 
     // Metodo para remover um contato do arquivo
     public static void removerContatoDoArquivo(String caminhoArquivo, String telefone) {
@@ -151,6 +162,10 @@ public class GerenciadorContatos implements Serializable {
     // Metodo para retornar a lista de contatos
     public List<Contato> getListaContatos() {
         return listaContatos;
+    }
+
+    public TreeMap<String, Contato> getContatosOrdenados() {
+        return contatosOrdenados;
     }
 
 }

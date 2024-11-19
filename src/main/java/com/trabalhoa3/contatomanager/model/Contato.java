@@ -19,6 +19,7 @@ public class Contato implements Serializable {
     // Expressão regular para validar o formato de telefone (exemplo: "(XX) XXXXX-XXXX" ou "XXXXXXXXXX")
     private static final Pattern TELEFONE_REGEX = Pattern.compile("^\\(?\\d{2}\\)?\\s?\\d{4,5}-?\\d{4}$");
 
+    // Construtor padrão
     public Contato(String nome, String email) {
         this.nome = nome;
         this.email = email;
